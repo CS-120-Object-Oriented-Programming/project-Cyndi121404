@@ -26,6 +26,7 @@ public class Game {
 	 * Create the game and initialize its internal map.
 	 */
 	public Game() {
+		world  = new World();
 		Thomas = new Player (world.getRoom("centerOfMaze"));
 		// set the starting room
 		//Thomas = world.getRoom("centerOfMaze");  
@@ -75,7 +76,7 @@ public class Game {
 				wantToQuit = quit(command);
 			} 
 			else if (commandWord.equals("look")) {
-				look();
+				//Look(); (notes form sliva)
 			}
 			else
 				Writer.println(commandWord + " is not implemented yet!");
