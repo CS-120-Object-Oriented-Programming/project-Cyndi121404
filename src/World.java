@@ -115,7 +115,7 @@ public class World {
 		Room runAway = new Room("running",",You were able to open the door! You must run through the door, find a way to get rid of the monsters, escape all with your new found family. What could possibly be a solution. ");
 		Room whereDoor = new Room("finding door", "You enter a very long hallway that seems to stretch for miles. The walls are bland and it gives off an eerie feeling.  You start to run and come across multiple doors. Which door can it possibly be?");
 		Room enterRoom = new Room("entering room","You Finally have gotten a door to open!! You enter a room with many computers, lab equipment and more. What could have possibly been happening in here you continue to move forward through the room.");
-		Room video = new Room("watching Video",("A woman with white hair and wrinkly skin appears on a projector. You visualize people in the background that seem as though they are in a hurry for something hurriedly leaving. You then find out what the Rush Sickness is and everything else….");
+		Room video = new Room("watching Video",("A woman with white hair and wrinkly skin appears on a projector. You visualize people in the background that seem as though they are in a hurry for something hurriedly leaving. You then find out what the Rush Sickness is and everything else…."));
 		Room rid = new Room("Destroy him","Mitch just Murdered Alex. He is aiming for you next. What is your next step?");
 		Room kidnapped = new Room("hehehe","Multiple men armed start rushing in. They say they are Here to save you and rescue you. You must follow them to their helicopter outside and make a run for it. You step outside for the first time. The true outside and are surrounded by nothing but sand. You must make a run to the helicopter cause people are about to attack you. Infected people who are barely people anymore.");
 		Room sus = new Room("suspicious","You are now inside the new facility. It is guarded like no other. The main leader calls 12 people every week to take them to a new place and be free? Where do they go? No one knows. Take a peek and find out. Trust the wrong people and it will be the last thing you choose.");
@@ -123,7 +123,7 @@ public class World {
 		Room actionPlan = new Room("into action","You saw what happens when you are taken to this place. You were able to break into the room. You and your brothers want to escape. How will you accomplish it?");
 		Room Mall = new Room("mall","While running you have discovered an abandoned mall in the dessert. Lets see what the mall is about and if it has anything to offer.");
 		Room exploring = new Room("explore","While exploring you see that there are still things inside the mall that are resourceful. You and everyone else either change clothes or grab everything that can be carried. Munch discovers a large switch inside. Should he turn it on?");	
-		Room escaping = new Room("wow","Wowwwwww . Great. You just had to turn on the light. Now we must think fast and come up with an escape because you are being chased with what seems to be around 50 people infected with the rush.")
+		Room escaping = new Room("wow","Wowwwwww . Great. You just had to turn on the light. Now we must think fast and come up with an escape because you are being chased with what seems to be around 50 people infected with the rush.");
 		Room observe = new Room("im here","You find yourself in what seems to be an old city. It has been so long since people dwelled here that it looks sad. Everything is coming apart. You are finally able to rest… kinda… and just walks around trying to find your next destination.");	
 		Room underRock = new Room("rockunder","The men from the facility are near. You see their Helicopter nearby. There you discover someone close to you has gotten infected with the Rush. He is begging you to end his misery before he hurts someone. What will you do?");
 		Room trade = new Room("the trade", "While wondering you come across this unknown building. When you enter there are many beings that have been infected with the rush. They are tied up in chains as though they are animals. Suddenly the lights turn on. You see someone in the light. Do you trust these unknown people or do you make a run for it?. ");			
@@ -181,61 +181,60 @@ public class World {
 
 
 		// Creating all the doors between the rooms.
-		this.createSouthDoor(centerOfMaze);
+		this.createSouthDoor(centerOfMaze , monsterBattle);
 		
 
-		this.createSouthDoor(monsterBattle);
+		this.createSouthDoor(monsterBattle , foundDoor);
 		
-		this.createSouthDoor(foundDoor);
+		this.createSouthDoor(foundDoor , runAway);
 		
-		this.createSouthDoor(runAway);
+		this.createSouthDoor(runAway , whereDoor);
 		
-		this.createSouthDoor(whereDoor);
+		this.createSouthDoor(whereDoor , enterRoom);
 		
-		this.createSouthDoor(enterRoom);
+		this.createSouthDoor(enterRoom , video);
 		
-		this.createSouthDoor(video);
+		this.createSouthDoor(video , rid);
 		
-		this.createSouthDoor(rid);
+		this.createSouthDoor(rid , kidnapped);
 		
-		this.createSouthDoor(kidnapped);
+		this.createSouthDoor(kidnapped , sus);
 		
-		this.createSouthDoor(sus);
+		this.createSouthDoor(sus , mysteryRoom);
 		
-		this.createSouthDoor(mysteryRoom);
+		this.createSouthDoor(mysteryRoom , actionPlan);
 		
-		this.createSouthDoor(actionPlan);
+		this.createSouthDoor(actionPlan , Mall);
 		
-		this.createSouthDoor(Mall);
+		this.createSouthDoor(Mall , exploring);
 		
-		this.createSouthDoor(exploring);
+		this.createSouthDoor(exploring , escaping);
 		
-		this.createSouthDoor(escaping);
+		this.createSouthDoor(escaping , observe);
 		
-		this.createSouthDoor(observe);
+		this.createSouthDoor(observe , underRock);
 		
-		this.createSouthDoor(underRock);
+		this.createSouthDoor(underRock , trade);
 		
-		this.createSouthDoor(trade);
+		this.createSouthDoor(trade , mountains);
 		
-		this.createSouthDoor(mountains);
+		this.createSouthDoor(mountains , savingTruth);
 		
-		this.createSouthDoor(savingTruth);
+		this.createSouthDoor(savingTruth , capture);
 		
-		this.createSouthDoor(capture);
+		this.createSouthDoor(capture , partyHardy);
 		
-		this.createSouthDoor(partyHardy);
+		this.createSouthDoor(partyHardy , wall);
 		
-		this.createSouthDoor(wall);
+		this.createSouthDoor(wall , saving);
 		
+		this.createSouthDoor(saving , backtoMountains);
 		
-		this.createSouthDoor(saving);
+		this.createSouthDoor(backtoMountains , shipSails);
 		
-		this.createSouthDoor(backtoMountains);
+		this.createSouthDoor(shipSails , greatRock);
 		
-		this.createSouthDoor(shipSails);
-		
-		this.createSouthDoor(greatRock);
+		this.createSouthDoor(greatRock,greatRock);
 		
 		
 		

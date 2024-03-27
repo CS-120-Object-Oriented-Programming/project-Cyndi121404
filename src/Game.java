@@ -19,16 +19,16 @@ public class Game {
 	/** The world where the game takes place. */
 	private World world;
 	/** The room the player character is currently in. */
-	private Room currentRoom;
+	private Player Thomas;
 	private int score = 0; 
 	private int turn = 0; 
 	/**
 	 * Create the game and initialize its internal map.
 	 */
 	public Game() {
-		world = new World();
+		Thomas = new Player (world.getRoom("centerOfMaze"));
 		// set the starting room
-		currentRoom = world.getRoom("outside");
+		//Thomas = world.getRoom("centerOfMaze");  
 	}
 
 	/**
@@ -73,26 +73,30 @@ public class Game {
 				goRoom(command);
 			} else if (commandWord.equals("quit")) {
 				wantToQuit = quit(command);
-			} else {
+			} 
+			else if (commandWord.equals("look")) {
+				look();
+			}
+			else
 				Writer.println(commandWord + " is not implemented yet!");
 			}
-		}
+		
 		return wantToQuit;
 	}
 	private void printLocationInformation(){
-	Writer.println(currentRoom.getName() + ":");
-	Writer.println("You are " + currentRoom.getDescription());
+	Writer.println(Thomas.getCurrentRoom().getName() + ":");
+	Writer.println("You are " + Thomas.getCurrentRoom().getDescription());
 	Writer.print("Exits: ");
-	if (currentRoom.northExit != null) {
+	if (Thomas.getCurrentRoom() != null) {
 		Writer.print("north ");
 	}
-	if (currentRoom.eastExit != null) {
+	if (Thomas.getCurrentRoom() != null) {
 		Writer.print("east ");
 	}
-	if (currentRoom.southExit != null) {
+	if (Thomas.getCurrentRoom() != null) {
 		Writer.print("south ");
 	}
-	if (currentRoom.westExit != null) {
+	if (Thomas.getCurrentRoom() != null) {
 		Writer.print("west ");
 	}
 	Writer.println("");
@@ -122,23 +126,23 @@ public class Game {
 			// Try to leave current.
 			Door doorway = null;
 			if (direction.equals("north")) {
-				doorway = currentRoom.northExit;
+				doorway = Thomas.getCurrentRoom().northExit;
 			}
 			if (direction.equals("east")) {
-				doorway = currentRoom.eastExit;
+				doorway = Thomas.getCurrentRoom().eastExit;
 			}
 			if (direction.equals("south")) {
-				doorway = currentRoom.southExit;
+				doorway = Thomas.getCurrentRoom().southExit;
 			}
 			if (direction.equals("west")) {
-				doorway = currentRoom.westExit;
+				doorway = Thomas.getCurrentRoom().westExit;
 			}
 
 			if (doorway == null) {
 				Writer.println("There is no door!");
 			} else {
 				Room newRoom = doorway.getDestination();
-				currentRoom = newRoom;
+				Thomas.setCurrentRoom(newRoom); 
 				printLocationInformation();
 			}
 			
@@ -182,10 +186,19 @@ public class Game {
 	 * "Quit" was entered. Check the rest of the command to see whether we
 	 * really quit the game.
 	 *
+	 
 	 * @param command
 	 *            The command to be processed.
 	 * @return true, if this command quits the game, false otherwise.
 	 */
+	//private void look(){
+	//print lovation info
+	
+	
+	
+	
+	
+	
 	private boolean quit(Command command) {
 		boolean wantToQuit = true;
 		if (command.hasSecondWord()) {
