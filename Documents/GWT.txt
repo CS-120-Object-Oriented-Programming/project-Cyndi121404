@@ -66,3 +66,9 @@ STATUS Scenario #1:
     THEN : current number of turns is displayed 
      and : player's current score is displayed
      and : player's current location is displayed
+     
+     
+     
+     
+     
+     
