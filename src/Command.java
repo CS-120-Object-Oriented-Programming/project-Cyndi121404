@@ -24,7 +24,7 @@ import java.util.ArrayList;
 
 public class Command {
 	/** The command word for this command. */
-	private String commandWord;
+	private commandenum commandWord;
 	/** The rest of the line with all the spaces removed. */
 	private ArrayList<String> restOfLine;
 
@@ -36,7 +36,7 @@ public class Command {
 	 *            The first word of the command. Null if the command was not
 	 *            recognized.
 	 */
-	public Command(String firstWord) {
+	public Command(commandenum firstWord) {
 		commandWord = firstWord;
 		restOfLine = new ArrayList<String>();
 	}
@@ -51,7 +51,7 @@ public class Command {
 	 * @param rest
 	 *            The rest of the command.
 	 */
-	public Command(String firstWord, ArrayList<String> rest) {
+	public Command(commandenum firstWord, ArrayList<String> rest) {
 		commandWord = firstWord;
 		restOfLine = rest;
 	}
@@ -62,7 +62,7 @@ public class Command {
 	 *
 	 * @return The command word.
 	 */
-	public String getCommandWord() {
+	public commandenum getCommandWord() {
 		return commandWord;
 	}
 

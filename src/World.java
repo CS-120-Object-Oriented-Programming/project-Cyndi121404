@@ -51,62 +51,17 @@ public class World {
 		rooms.put(theRoom.getName().toLowerCase(), theRoom);
 	}
 
-	/**
-	 * Helper method for creating doors between rooms.
-	 *
-	 * @param from
-	 *            The room where the door originates.
-	 * @param north
-	 *            The room to the north of the originating room.
-	 */
-	private void createNorthDoor(Room from, Room north) {
-		Door northDoor = new Door(north);
-		from.northExit = northDoor;
+	
+	
+	
+	private void createDoor(Room from, String direction, Room to) {
+		Door theDoor = new Door(to);
+		from.setExit(direction, theDoor);
 	}
-
-	/**
-	 * Helper method for creating doors between rooms.
-	 *
-	 * @param from
-	 *            The room where the door originates.
-	 * @param east
-	 *            The room to the east of the originating room.
-	 */
-	private void createEastDoor(Room from, Room east) {
-		Door eastDoor = new Door(east);
-		from.eastExit = eastDoor;
-	}
-
-	/**
-	 * Helper method for creating doors between rooms.
-	 *
-	 * @param from
-	 *            The room where the door originates.
-	 * @param south
-	 *            The room to the south of the originating room.
-	 */
-	private void createSouthDoor(Room from, Room south) {
-		Door southDoor = new Door(south);
-		from.southExit = southDoor;
-	}
-
-	/**
-	 * Helper method for creating doors between rooms.
-	 *
-	 * @param from
-	 *            The room where the door originates.
-	 * @param west
-	 *            The room to the west of the originating room.
-	 */
-	private void createWestDoor(Room from, Room west) {
-		Door westDoor = new Door(west);
-		from.westExit = westDoor;
-	}
-
-	/**
-	 * This method creates all of the individual places in this world and all
-	 * the doors connecting them.
-	 */
+	
+	
+	
+	
 	private void createRooms() {
 		// Creating all the rooms.
 		Room centerOfMaze = new Room("center of maze","You wake up and cannot recognize where you are. You cannot remember anything besides that your name is thomas. Through the new group of boys you met you discover that you are inside a maze. Every night the maze changes. Everyone is trying to discover a way out while trying to survive. If someone got  close to discovering the way out they end up sick and passing");
@@ -121,7 +76,7 @@ public class World {
 		Room sus = new Room("suspicious","You are now inside the new facility. It is guarded like no other. The main leader calls 12 people every week to take them to a new place and be free? Where do they go? No one knows. Take a peek and find out. Trust the wrong people and it will be the last thing you choose.");
 		Room mysteryRoom = new Room("mystery","You  have met a new kid named Munch. Munch wats you to follow him through an air vent to take a look of the outside of this mysterious room. He wants to break in but needs your help. What will you decide to choose?")	;
 		Room actionPlan = new Room("into action","You saw what happens when you are taken to this place. You were able to break into the room. You and your brothers want to escape. How will you accomplish it?");
-		Room Mall = new Room("mall","While running you have discovered an abandoned mall in the dessert. Lets see what the mall is about and if it has anything to offer.");
+		Room mall = new Room("mall","While running you have discovered an abandoned mall in the dessert. Lets see what the mall is about and if it has anything to offer.");
 		Room exploring = new Room("explore","While exploring you see that there are still things inside the mall that are resourceful. You and everyone else either change clothes or grab everything that can be carried. Munch discovers a large switch inside. Should he turn it on?");	
 		Room escaping = new Room("wow","Wowwwwww . Great. You just had to turn on the light. Now we must think fast and come up with an escape because you are being chased with what seems to be around 50 people infected with the rush.");
 		Room observe = new Room("im here","You find yourself in what seems to be an old city. It has been so long since people dwelled here that it looks sad. Everything is coming apart. You are finally able to rest… kinda… and just walks around trying to find your next destination.");	
@@ -162,7 +117,7 @@ public class World {
 		this.addRoom(sus);
 		this.addRoom(mysteryRoom);
 		this.addRoom(actionPlan);
-		this.addRoom(Mall);
+		this.addRoom(mall);
 		this.addRoom(exploring);
 		this.addRoom(escaping);
 		this.addRoom(observe);
@@ -181,63 +136,103 @@ public class World {
 
 
 		// Creating all the doors between the rooms.
-		this.createSouthDoor(centerOfMaze , monsterBattle);
+		this.createDoor(centerOfMaze ,"north", monsterBattle);
 		
 
-		this.createSouthDoor(monsterBattle , foundDoor);
+		this.createDoor(monsterBattle,"north", foundDoor);
 		
-		this.createSouthDoor(foundDoor , runAway);
+		this.createDoor(foundDoor ,"north", runAway);
 		
-		this.createSouthDoor(runAway , whereDoor);
+		this.createDoor(runAway ,"north", whereDoor);
 		
-		this.createSouthDoor(whereDoor , enterRoom);
+		this.createDoor(whereDoor ,"north", enterRoom);
 		
-		this.createSouthDoor(enterRoom , video);
+		this.createDoor(enterRoom ,"north", video);
 		
-		this.createSouthDoor(video , rid);
+		this.createDoor(video ,"north", rid);
 		
-		this.createSouthDoor(rid , kidnapped);
+		this.createDoor(rid ,"north", kidnapped);
 		
-		this.createSouthDoor(kidnapped , sus);
+		this.createDoor(kidnapped ,"north", sus);
 		
-		this.createSouthDoor(sus , mysteryRoom);
+		this.createDoor(sus ,"north", mysteryRoom);
 		
-		this.createSouthDoor(mysteryRoom , actionPlan);
+		this.createDoor(mysteryRoom ,"north", actionPlan);
 		
-		this.createSouthDoor(actionPlan , Mall);
+		this.createDoor(actionPlan ,"north", mall);
 		
-		this.createSouthDoor(Mall , exploring);
+		this.createDoor(mall ,"north", exploring);
 		
-		this.createSouthDoor(exploring , escaping);
+		this.createDoor(exploring ,"north", escaping);
 		
-		this.createSouthDoor(escaping , observe);
+		this.createDoor(escaping ,"north", observe);
 		
-		this.createSouthDoor(observe , underRock);
+		this.createDoor(observe ,"north",underRock);
 		
-		this.createSouthDoor(underRock , trade);
+		this.createDoor(underRock ,"north", trade);
 		
-		this.createSouthDoor(trade , mountains);
+		this.createDoor(trade ,"north", mountains);
 		
-		this.createSouthDoor(mountains , savingTruth);
+		this.createDoor(mountains ,"north", savingTruth);
 		
-		this.createSouthDoor(savingTruth , capture);
+		this.createDoor(savingTruth ,"north", capture);
 		
-		this.createSouthDoor(capture , partyHardy);
+		this.createDoor(capture ,"north", partyHardy);
 		
-		this.createSouthDoor(partyHardy , wall);
+		this.createDoor(partyHardy ,"north", wall);
 		
-		this.createSouthDoor(wall , saving);
+		this.createDoor(wall ,"north", saving);
 		
-		this.createSouthDoor(saving , backtoMountains);
+		this.createDoor(saving ,"north", backtoMountains);
 		
-		this.createSouthDoor(backtoMountains , shipSails);
+		this.createDoor(backtoMountains ,"north", shipSails);
 		
-		this.createSouthDoor(shipSails , greatRock);
+		this.createDoor(shipSails ,"north", greatRock);
 		
-		this.createSouthDoor(greatRock,greatRock);
-		
-		
+		this.createDoor(greatRock,"north",greatRock);
 		
 		
-	}
+	}	
+		
+	
+private void createIteams() {
+	//create all iteams
+	Iteam key = new Iteam("neighbor key" , "blahblah blahhhhh" , 500, .05);
+	// add iteams to room
+	rooms.get("centerOfMaze").addIteam(key);
+	
+	// st key to unlock right door
+	((Object) rooms.get("monsterBattle").getDirection("north")).setLock(true);
+	((Object) ((Room) Room.get("monsterBattle")).getDirection("north")).setKey(key);
+	
+	///continue to create in room
+}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

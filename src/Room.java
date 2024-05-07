@@ -1,3 +1,5 @@
+import java.util.HashMap;
+
 /**
  * Class Room - a room in an adventure game.
  *
@@ -13,23 +15,19 @@
  *
  * Used with permission from Dr. Maria Jump at Northeastern University
  */
+
 public class Room {
+	
+	private HashMap<String, Iteam>Iteam;
 	/** Counter for the total number of rooms created in the world. */
 	private static int counter;
 	/** The name of this room.  Room names should be unique. */
 	private String name;
 	/** The description of this room. */
 	private String description;
+	private HashMap<String,Door> doors;
 
-	/** This room's north exit, null if none exits. */
-	public Door northExit;
-	/** This room's south exit, null if none exits. */
-	public Door southExit;
-	/** This room's east exit, null if none exits. */
-	public Door eastExit;
-	/** This room's west exit, null if none exits. */
-	public Door westExit;
-
+	
 	/**
 	 * Static initializer.
 	 */
@@ -48,6 +46,13 @@ public class Room {
 		this.name = name;
 		this.description = description;
 		counter++;
+		Iteam = new HashMap<>();
+		//map of directions to available door
+		counter++;
+		doors = new HashMap<>();
+		
+		
+		
 	}
 
 	/**
@@ -75,4 +80,44 @@ public class Room {
 	public static int getCounter() {
 		return counter;
 	}
+	
+	
+	public void addIteam(Iteam theIteam) {
+		Iteam.put( theIteam.getname() , theIteam);
+		
+	}
+	
+	public Iteam getIteam(String iteamName) {
+		return Iteam.get(iteamName);
+	
+	}
+	
+	public void setExit(String direction, Door neighbor) {
+		doors.put( direction ,neighbor);
+	}
+	
+	public Door getExit(String direction) {
+		return doors.get(direction);
+	}
+	public String toString() {
+		return temp + name + ": /n" + description + "/n" + "Exits:";
+		for(String direction:doors.keyset()) {
+			temp += direction + " ";
+			
+		}
+		return temp;
+	}
+	  public String removeItem(String IteamName) {
+	        for (String Iteam : Iteam) {
+	            if (Iteam.equalsIgnoreCase(IteamName)) {
+	                Iteam.remove(Iteam);
+	                return Iteam;
+	            }
+	        }
+	        return null; // Item not found
+	    }
+
+
+	
+	
 }

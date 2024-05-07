@@ -1,3 +1,5 @@
+import java.util.HashMap;
+
 /**
  * This class is part of the "Campus of Kings" application. "Campus of Kings" is a
  * very simple, text based adventure game.
@@ -13,14 +15,21 @@
 
 public class CommandWords {
 	/** A constant array that holds all valid command words. */
-	private static String[] validCommands;
+	private static HashMap<String,commandenum> validCommands;
 
 	/**
 	 * Static block to initialize the fields of CommandWords.
 	 */
 	static {
-		String[] tempCommands = {"go", "quit", "help", "look", "status", "Back"};
-		validCommands = tempCommands;
+		
+		validCommands = new HashMap<>();
+		
+		for(commandenum c : commandenum.values()) {
+			validCommands.put(c.getText(),c);
+		}
+	}
+	public static commandenum getCommand(String thestring) {
+		return validCommands.get(thestring);
 	}
 
 	/**
@@ -30,15 +39,11 @@ public class CommandWords {
 	 * @return true if a given string is a valid command, false if it isn't.
 	 */
 	public static boolean isCommand(String aString) {
-		boolean valid = false;
-		int index = 0;
-		while (!valid && index < validCommands.length) {
-			if (validCommands[index].equals(aString)) {
-				valid = true;
-			}
-			index++;
-		}
+		return validCommands.containsKey(aString);
+			
+			
+		
 		// if we get here, the string was not found in the commands
-		return valid;
+		
 	}
 }

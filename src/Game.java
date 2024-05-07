@@ -66,28 +66,62 @@ public class Game {
 		if (command.isUnknown()) {
 			Writer.println("I don't know what you mean...");
 		} else {
-
-			String commandWord = command.getCommandWord();
-			if (commandWord.equals("help")) {
+			commandenum CommandWord = CommandWords.getCommand(command.getCommandWord());
+			switch(CommandWord) {
+			case HELP:
 				printHelp();
-			} else if (commandWord.equals("go")) {
+				break;
+			case GO:
 				goRoom(command);
-			} else if (commandWord.equals("quit")) {
+				break;
+			case QUIT:
 				wantToQuit = quit(command);
-			} 
-			else if (commandWord.equals("look")) {
-				//Look(); (notes form sliva)
+				break;
+			case LOOK:
+				look();
+				break;
+			case STATUS:
+				status();
+				break;
+			case BACK:
+				back();
+				break;
+			case UNPACK:
+				unpack();
+				break;
+			case LOCK:
+				 lock();
+				break;
+			case EXAMINE:
+				examine();
+				break;
+			case PACK:
+				pack();
+				break;
+			case UNLOCK:
+				unlock();
+				break;
+			case TAKE:
+				take();
+				break;
+			case DROP:
+				drop();
+				break;
+			case INVENTORY:
+				inventory();
+				break;
+				default:
+						Writer.println(CommandWord + " is not implemented yet!");
 			}
-			else
-				Writer.println(commandWord + " is not implemented yet!");
 			}
-		
 		return wantToQuit;
+			
 	}
 	private void printLocationInformation(){
 	Writer.println(Thomas.getCurrentRoom().getName() + ":");
 	Writer.println("You are " + Thomas.getCurrentRoom().getDescription());
 	Writer.print("Exits: ");
+	
 	if (Thomas.getCurrentRoom() != null) {
 		Writer.print("north ");
 	}
@@ -110,6 +144,9 @@ public class Game {
 	// Helper methods for implementing all of the commands.
 	// It helps if you organize these in alphabetical order.
 
+	//swap previous and current room and continue
+	
+
 	/**
 	 * Try to go to one direction. If there is an exit, enter the new room,
 	 * otherwise print an error message.
@@ -125,23 +162,16 @@ public class Game {
 			String direction = command.getRestOfLine();
 
 			// Try to leave current.
-			Door doorway = null;
-			if (direction.equals("north")) {
-				doorway = Thomas.getCurrentRoom().northExit;
-			}
-			if (direction.equals("east")) {
-				doorway = Thomas.getCurrentRoom().eastExit;
-			}
-			if (direction.equals("south")) {
-				doorway = Thomas.getCurrentRoom().southExit;
-			}
-			if (direction.equals("west")) {
-				doorway = Thomas.getCurrentRoom().westExit;
-			}
+			Door doorway = Thomas.getCurrentRoom().getExit(direction);
+			
 
 			if (doorway == null) {
 				Writer.println("There is no door!");
-			} else {
+			} 
+			else if (doorway.isLocked()) {
+				Writer.println("The Door Is locked);");
+			}
+			else {
 				Room newRoom = doorway.getDestination();
 				Thomas.setCurrentRoom(newRoom); 
 				printLocationInformation();
@@ -150,6 +180,51 @@ public class Game {
 		}
 	}
 
+	private void lock(Command command) {
+		if (!command.hasSecondWord()) {
+			// if there is no second word, we don't know where to go...
+			Writer.println("Lock What?");
+		} else {
+			String direction = command.getRestOfLine();
+
+			// Try to leave current.
+			Door doorway = Thomas.getCurrentRoom().getExit(direction);
+
+			if (doorway == null) {
+				Writer.println("There is no door!");
+			} 
+			else if (doorway.isLocked()) {
+				Writer.println("The Door Is locked);");
+			}
+			else if (doorway.getKey() == null) {
+				Writer.println ("door cannot be locked");
+			}
+			else {//there is a door that can be locked. do they have the key?
+				Writer.println("With what?");
+				String res = Reader.getResponse(); // iteam they want to use
+			
+				//cheack is key is in the inventory
+				Iteam key = Thomas.getIteam(res);
+				
+				if (key == null) {
+					Writer.println("you dont have that key!");
+
+				} 
+				else if (key != doorway.getKey()) {
+					Writer.println("you have the wrong key!");
+				}
+				else {
+					doorway.setLocked(true);
+					Writer.println("door is locked");
+				}
+			}
+			
+		}
+	}
+	
+	
+	
+	
 	/**
 	 * Print out the closing message for the player.
 	 */
@@ -175,6 +250,7 @@ public class Game {
 	 * Print out the opening message for the player.
 	 */
 	private void printWelcome() {
+		printLocationInformation();
 		Writer.println();
 		Writer.println("Welcome to the Campus of Kings!");
 		Writer.println("Campus of Kings is a new, incredibly boring adventure game.");
@@ -183,6 +259,7 @@ public class Game {
 		
 	}
 
+	
 	/**
 	 * "Quit" was entered. Check the rest of the command to see whether we
 	 * really quit the game.
@@ -194,10 +271,89 @@ public class Game {
 	 */
 	//private void look(){
 	//print lovation info
+	// prints out location information
+	private void look(){
+		printLocationInformation();
+		
+		
+		
+	}
+	private void status(){
+		printLocationInformation();
+		Writer.println("your score is " + score + " and you have been playing for " + turn);
+	}
+	private void back() {
+		if (Thomas.getPreviousRoom() != null && Thomas.getPreviousRoom() != Thomas.getCurrentRoom()) {
+			Thomas.setCurrentRoom(Thomas.getPreviousRoom());
+			printLocationInformation();
+			}
+		else {
+			Writer.println("You cant go back any further!");
+		}
+		
+	}
+	private void examine (Command command) {
+		if (!command.hasSecondWord()) {
+			Writer.println("Examine What");
+			return;
+		}
+	}
 	
+	private void take() {
+		if (!command.hasSecondWord()) {
+			// if there is no second word, we don't know where to go...
+			Writer.println("Take what?");
+		} else {
+			String direction = command.getRestOfLine();
+
+			// Try to leave current.
+			Door doorway = Thomas.getCurrentRoom().getExit(direction);
+			
+
+			if (doorway == null) {
+				Writer.println("No such iteam");
+			} 
+			else if (doorway.isLocked()) {
+				Writer.println("Carrying too much");
+			}
+			else {
+				Room newRoom = doorway.getDestination();
+				Thomas.setCurrentRoom(newRoom); 
+				printLocationInformation();
+			}
+			
+		}
+	    }
+		
 	
+		
 	
+	private void drop() {
+		if (parts.length == 1) {
+            System.out.println("Which item?");
+        } else {
+            String itemToDrop = parts[1];
+            if (!inventory.contains(itemToDrop)) {
+                System.out.println("You don't have it.");
+            } else {
+                inventory.remove(itemToDrop);
+                currentRoomItems.add(itemToDrop);
+                System.out.println("You dropped the " + itemToDrop + ".");
+            }
+        }
+    }
+
+		
 	
+		
+	private void inventory(){
+		
+		Writer.println("you have the following iteams in your inventory:");
+		for (IteamName : Thomas.getInventory().keySet) {
+			Writer.println(IteamName);
+		}
+		
+	}
 	
 	
 	private boolean quit(Command command) {
@@ -208,4 +364,70 @@ public class Game {
 		}
 		return wantToQuit;
 	}
-}
+	private void unlock(String direction) {
+		if (!doorLocked) {
+            System.out.println("The door is not locked.");
+        } else {
+            if (direction.equals("north") || direction.equals("south") || direction.equals("east") || direction.equals("west")) {
+                if (inventory.contains("Key")) {
+                    System.out.println("You unlocked the door to the " + direction + ".");
+                    doorLocked = false;
+                } else {
+                    System.out.println("You don't have the key to unlock the door.");
+                }
+            } else {
+                System.out.println("There is no door in that direction.");
+            }
+        }
+    }	
+		
+	private void lock(String direction) {
+		 if (doorLocked) {
+	            System.out.println("The door is already locked.");
+	        } else {
+	            if (direction.equals("north") || direction.equals("south") || direction.equals("east") || direction.equals("west")) {
+	                if (inventory.contains("Key")) {
+	                    System.out.println("You locked the door to the " + direction + ".");
+	                    doorLocked = true;
+	                } else {
+	                    System.out.println("You do not have the key to lock the door.");
+	                }
+	            } else {
+	                System.out.println("No door in that direction.");
+	            }
+	        }
+	    }
+		
+	private void unpack(String containerName) {
+		if (containerContents == null) {
+            System.out.println("You don't see it.");
+        } else {
+            System.out.print("Enter item to unpack: ");
+            Scanner scanner = new Scanner(System.in);
+            String itemToUnpack = scanner.nextLine().toLowerCase();
+
+            if (!containerContents.contains(itemToUnpack)) {
+                System.out.println("You don't find it.");
+            } else {
+                if (itemToUnpack.equals("Gold")) {
+                    System.out.println("You are already carrying too much.");
+                } else {
+                    containerContents.remove(itemToUnpack);
+                    inventory.add(itemToUnpack);
+                    System.out.println("You unpacked the " + itemToUnpack + ".");
+                }
+            }
+        }
+    }
+		
+		
+		
+	}
+		
+		
+	
+		
+		
+		
+	
+
