@@ -252,8 +252,8 @@ public class Game {
 	private void printWelcome() {
 		printLocationInformation();
 		Writer.println();
-		Writer.println("Welcome to the Campus of Kings!");
-		Writer.println("Campus of Kings is a new, incredibly boring adventure game.");
+		Writer.println("Welcome to The Advetures of Thomas Game!");
+		Writer.println("Campus Advetures of thomas is a new, adventure game.");
 		Writer.println("Type 'help' if you need help.");
 		Writer.println();
 		
@@ -299,27 +299,27 @@ public class Game {
 		}
 	}
 	
-	private void take() {
+	private void take(Command command) {
 		if (!command.hasSecondWord()) {
 			// if there is no second word, we don't know where to go...
 			Writer.println("Take what?");
 		} else {
-			String direction = command.getRestOfLine();
+			String iteam = command.getRestOfLine();
 
 			// Try to leave current.
-			Door doorway = Thomas.getCurrentRoom().getExit(direction);
+			Iteam v = Thomas.getCurrentRoom().getIteam(iteam);
 			
 
-			if (doorway == null) {
+			if ( v == null) {
 				Writer.println("No such iteam");
 			} 
-			else if (doorway.isLocked()) {
+			else if (v.getWeight() >  Thomas.getWeight() || Thomas.addIteam(v)== false) {
 				Writer.println("Carrying too much");
 			}
 			else {
-				Room newRoom = doorway.getDestination();
-				Thomas.setCurrentRoom(newRoom); 
-				printLocationInformation();
+				Thomas.addIteam(v);
+				Thomas.getCurrentRoom().removeItem(iteam);
+				
 			}
 			
 		}
@@ -349,8 +349,8 @@ public class Game {
 	private void inventory(){
 		
 		Writer.println("you have the following iteams in your inventory:");
-		for (IteamName : Thomas.getInventory().keySet) {
-			Writer.println(IteamName);
+		for (String iteamName : Thomas.getInventory().keySet()) {
+			Writer.println(iteamName);
 		}
 		
 	}

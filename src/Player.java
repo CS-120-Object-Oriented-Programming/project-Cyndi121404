@@ -59,8 +59,33 @@ public class Player {
 	public void setInventory(HashMap <String, Iteam> inventory) {
 		this.inventory = inventory;
 	}
-
-
+	public boolean addIteam(Iteam object) {
+		double totalWeight = 0.1;
+		for (Iteam i : inventory.values()) {
+			totalWeight = i.getWeight();
+	}
+		totalWeight t = object.getWeight();
+		if (totalweight t = object.getWeight(Max)) {
+			incenter.put();
+			return true;
+		}
+		return false;
+	}
+	public String getName() {
+        return getName();
+    }
+	public void removeItem(String itemName) {
+        Iterator<Item> iterator = Iteam.iterator();
+        while (iterator.hasNext()) {
+            Item item = iterator.next();
+            if (item.getName().equals(itemName)) {
+                iterator.remove();
+                System.out.println("Item removed from inventory: " + itemName);
+                return;
+            }
+        }
+        System.out.println("Item not found in inventory: " + itemName);
+    }
 	
 	}
 	

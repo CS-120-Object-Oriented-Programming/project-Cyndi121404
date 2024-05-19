@@ -198,14 +198,41 @@ public class World {
 private void createIteams() {
 	//create all iteams
 	Iteam key = new Iteam("neighbor key" , "blahblah blahhhhh" , 500, .05);
+	Iteam knife = new Iteam("In gunthers hand" , "blahblah blahhhhh" , 500, .1);
+	Iteam bow_and_arrow = new Iteam("In gunthers hand" , "blahblah blahhhhh" , 500, 5.00);
+	Iteam pills = new Iteam("In gunthers hand" , "blahblah blahhhhh" , 500, 0.01);
+	Iteam book = new Iteam("In gunthers hand" , "blahblah blahhhhh" , 500, 5.00);
+	Iteam lantern = new Iteam("In gunthers hand" , "blahblah blahhhhh" , 500, 2.00);
+	
+	
+	
 	// add iteams to room
 	rooms.get("centerOfMaze").addIteam(key);
+	rooms.get("underRock ").addIteam(knife);
+	rooms.get("rid ").addIteam(bow_and_arrow);
+	rooms.get(" partyHardy").addIteam(pills);
+	rooms.get(" foundDoor").addIteam(book);
+	rooms.get("mall").addIteam(lantern);
 	
 	// st key to unlock right door
 	((Object) rooms.get("monsterBattle").getDirection("north")).setLock(true);
 	((Object) ((Room) Room.get("monsterBattle")).getDirection("north")).setKey(key);
 	
-	///continue to create in room
+	
+	((Object) rooms.get("underRock ").getDirection("north")).setLock(true);
+	((Object) ((Room) Room.get("underRock ")).getDirection("north")).setKey(knife);
+	
+	((Object) rooms.get("rid ").getDirection("north")).setLock(true);
+	((Object) ((Room) Room.get("rid ")).getDirection("north")).setKey(bow_and_arrow);
+	
+	((Object) rooms.get("partyHardy ").getDirection("north")).setLock(true);
+	((Object) ((Room) Room.get("partyHardy")).getDirection("north")).setKey(pills);
+	
+	((Object) rooms.get("foundDoor ").getDirection("north")).setLock(true);
+	((Object) ((Room) Room.get("foundDoor")).getDirection("north")).setKey(book);
+	
+	((Object) rooms.get("mall").getDirection("north")).setLock(true);
+	((Object) ((Room) Room.get("mall")).getDirection("north")).setKey(lantern);
 }
 	
 	
